@@ -4,7 +4,8 @@
   "description": "Cloud Computing Source in Seneca CPA",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --config .eslintrc.js src/**"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Genne23v/fragments/issues"
   },
-  "homepage": "https://github.com/Genne23v/fragments#readme"
+  "homepage": "https://github.com/Genne23v/fragments#readme",
+  "devDependencies": {
+    "eslint": "^8.23.0"
+  }
 }
