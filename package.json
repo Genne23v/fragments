@@ -1,7 +1,8 @@
 {
     "name": "fragments",
-    "version": "1.0.0",
-    "description": "Cloud Computing Source in Seneca CPA",
+    "private": true,
+    "version": "0.0.1",
+    "description": "Fragments backend API",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,8 +16,8 @@
         "url": "git+https://github.com/Genne23v/fragments.git"
     },
     "keywords": [],
-    "author": "",
-    "license": "ISC",
+    "author": "Wonkeun No",
+    "license": "UNLICENSED",
     "bugs": {
         "url": "https://github.com/Genne23v/fragments/issues"
     },
