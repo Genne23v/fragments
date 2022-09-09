@@ -40,7 +40,7 @@ app.use((req, res) => {
         },
     });
 });
-
+//eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     const status = err.status || 500;
     const message = err.message || 'Unable to process request';
