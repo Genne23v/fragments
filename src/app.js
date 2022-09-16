@@ -20,16 +20,7 @@ app.use(cors());
 
 app.use(compression());
 
-app.get('/', (req, res) => {
-    res.setHeader('Cache-Control', 'no-cache');
-
-    res.status(200).json({
-        status: 'ok',
-        author,
-        githubUrl: 'https://github.com/Genne23v/fragments',
-        version,
-    });
-});
+app.use('/', require('./routes'));
 
 app.use((req, res) => {
     res.status(404).json({
