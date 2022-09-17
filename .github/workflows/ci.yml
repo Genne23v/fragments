@@ -1,6 +1,6 @@
-#.github/workflows/ci.yml
+# .github/workflows/ci.yml
 
-#Continous Integration ci Workflow
+# Continous Integration CI Workflow
 name: ci
 
 on:
@@ -18,11 +18,11 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Check out code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       # https://github.com/actions/setup-node
       - name: Setup code
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: '16'
           cache: 'npm'
