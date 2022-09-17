@@ -13,6 +13,7 @@ const jwtVerifier = CognitoJwtVerifier.create({
 jwtVerifier
     .hydrate()
     .then(() => {
+        console.log(`CLIENT ID: ${jwtVerifier.issuersConfig}, ${process.env.AWS_COGNITO_CLIENT_ID}`)
         logger.info('Cognito JWKS cached');
     })
     .catch((err) => {
