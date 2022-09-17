@@ -8,6 +8,7 @@ const jwtVerifier = CognitoJwtVerifier.create({
     userPoolId: process.env.AWS_COGNITO_POOL_ID,
     cliendId: process.env.AWS_COGNITO_CLIENT_ID,
     tokenUse: 'id',
+
 });
 
 jwtVerifier
