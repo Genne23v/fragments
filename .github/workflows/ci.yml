@@ -1,0 +1,35 @@
+#.github/workflows/ci.yml
+
+#Continous Integration ci Workflow
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/actions/checkout
+      - name: Check out code
+      - uses: actions/checkout@v2
+
+      # https://github.com/actions/setup-node
+      - name: Setup code
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install node dependencies
+        run: npm ci
+
+      - name: Run ESLint
+      - run: npm run lint
+
