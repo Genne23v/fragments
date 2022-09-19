@@ -1,10 +1,10 @@
+const { createErrorResponse } = require('./response');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
 const authenticate = require('./authentication');
-// const { version, author } = require('../package.json');
 const logger = require('./logger');
 const pino = require('pino-http')({
     logger,
@@ -26,13 +26,8 @@ app.use(passport.initialize());
 app.use('/', require('./routes'));
 
 app.use((req, res) => {
-    res.status(404).json({
-        status: 'error',
-        error: {
-            message: 'Not Found',
-            code: 404,
-        },
-    });
+    const error = { message: 'Not Found', code: 404 };
+    res.status(404).json(createErrorResponse(error));
 });
 
 //eslint-disable-next-line no-unused-vars
