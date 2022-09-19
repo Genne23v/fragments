@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
-const authorization = require('./authorization');
+const authenticate = require('./authentication');
 // const { version, author } = require('../package.json');
 const logger = require('./logger');
 const pino = require('pino-http')({
@@ -20,7 +20,7 @@ app.use(cors());
 
 app.use(compression());
 
-passport.use(authorization.strategy());
+passport.use(authenticate.strategy());
 app.use(passport.initialize());
 
 app.use('/', require('./routes'));
@@ -34,6 +34,7 @@ app.use((req, res) => {
         },
     });
 });
+
 //eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
     const status = err.status || 500;
