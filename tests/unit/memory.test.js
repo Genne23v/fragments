@@ -7,6 +7,7 @@ const {
 const MemoryDB = require('../../src/model/data/memory/memory-db');
 
 describe('memory', () => {
+  // eslint-disable-next-line no-unused-vars
   let db;
 
   beforeEach(() => {
