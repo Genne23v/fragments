@@ -10,7 +10,18 @@ const {
   deleteFragment,
 } = require('./data');
 
-const validTypes = ['text/plain'];
+const validTypes = [
+  `text/plain`,
+  /*
+  `text/markdown`,
+  `text/html`,
+  `application/json`,
+  `image/png`,
+  `image/jpeg`,
+  `image/webp`,
+  `image/gif`,
+  */
+];
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
@@ -43,7 +54,7 @@ class Fragment {
     this.size = size;
 
     const parsedType = contentType.parse(type).type;
-    if (!validTypes.includes(parsedType)) {
+    if (!this.formats.includes(parsedType)) {
       throw new Error('Not supported content type');
     }
   }
