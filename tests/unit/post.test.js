@@ -25,7 +25,7 @@ describe('POST v1/fragments', () => {
       .set('Content-Type', 'image/png')
       .send('post test');
 
-    expect(res.statusCode).toBe(500);
+    expect(res.statusCode).toBe(415);
     expect(res.body.status).toBe('error');
   });
 });
