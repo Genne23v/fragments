@@ -18,7 +18,8 @@ module.exports = (req, res) => {
 
   const { ownerId, id, created, updated, type, size } = fragment;
   fragment.setData(req.body);
-
+  fragment.save();
+  
   res
     .status(200)
     .json(createSuccessResponse({ fragment: { ownerId, id, created, updated, type, size } }));

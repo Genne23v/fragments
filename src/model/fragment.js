@@ -87,7 +87,7 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    const fragment = await readFragment(ownerId, id);
+    const fragment = await readFragmentData(ownerId, id);
 
     if (!fragment) {
       throw new Error('Fragment does not exist in DB');
