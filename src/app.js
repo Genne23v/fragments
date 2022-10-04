@@ -26,6 +26,7 @@ app.use(passport.initialize());
 app.use('/', require('./routes'));
 
 app.use((req, res) => {
+    logger.info('Invalid path requested');
     const error = { message: 'Not Found', code: 404 };
     res.status(404).json(createErrorResponse(error));
 });
