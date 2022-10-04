@@ -30,7 +30,7 @@ class Fragment {
       throw new Error('ownerId and type must be provided');
     }
 
-    if (size <= 0) {
+    if (!Number.isInteger(size) || size < 0) {
       logger.debug({ size }, 'Invalid content size');
       throw new Error('Size must be a positive number');
     }
@@ -51,15 +51,21 @@ class Fragment {
     } else {
       this.updated = new Date().toISOString();
     }
-    
-    // const parsedType = contentType.parse(type).type;
-    if (!this.formats.includes(type.type)) {
-      logger.debug({ type }, 'Invalid content type');
+
+    const parsedType = contentType.parse(type).type;
+    const parameters = contentType.parse(type).parameters;
+    if (!this.formats.includes(parsedType)) {
+      logger.debug({ parsedType }, 'Invalid content type');
       throw new Error('Not supported content type');
     }
-logger.fatal({type}, 'CONTENT TYPE INFO')
+
+    if ('charset' in parameters) {
+      this.type = parsedType + '; charset=utf-8';
+    } else {
+      this.type = parsedType;
+    }
+
     this.ownerId = ownerId;
-    this.type = type.type;
     this.size = size;
   }
 
