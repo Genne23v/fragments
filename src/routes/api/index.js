@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const contentType = require('content-type');
+const logger = require('../../logger');
 const { Fragment } = require('../../model/fragment');
 
 const rawBody = () =>
@@ -9,6 +10,7 @@ const rawBody = () =>
     limit: '5mb',
     type: (req) => {
       const { type } = contentType.parse(req);
+      logger.debug({ type }, 'parsed content-type');
       return Fragment.isSupportedType(type);
     },
   });
