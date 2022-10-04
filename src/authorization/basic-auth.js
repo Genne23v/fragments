@@ -3,7 +3,7 @@ const passport = require('passport');
 const authPassport = require('http-auth-passport');
 
 if (!process.env.HTPASSWD_FILE) {
-    throw new Error('missing expected env var: HTPASSWD_FILE');
+    throw new Error('Missing expected env var: HTPASSWD_FILE');
 }
 
 module.exports.strategy = () =>

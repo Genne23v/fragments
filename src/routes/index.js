@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticate } = require('../authentication');
+const { authenticate } = require('../authorization/index');
 const { createSuccessResponse } = require('../response');
 const { version, author } = require('../../package.json');
 const logger = require('../logger');
