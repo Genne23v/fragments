@@ -7,15 +7,14 @@ describe('GET /v1/fragments', () => {
   test('Incorrect credentials are denied', () =>
     request(app).get('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-  test('Authenticated users get a fragments array', async (done) => {
+  test('Authenticated users get a fragments array', async () => {
     await request(app)
       .get('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
       .expect(200)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(Array.isArray(res.body.fragments)).toBe(true))
-      .expect((res) => expect(res.headers['location']).not.toBeUndefined())
-      .end(done);
+      .expect((res) => expect(res.headers['location']).not.toBeUndefined());
   });
 
   test('GET /v1/fragments returns 404', (done) => {
