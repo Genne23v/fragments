@@ -9,11 +9,11 @@ module.exports = async (req, res) => {
   await Fragment.byId(req.user, req.params.id)
     .then(async (fragment) => {
       await fragment.getData().then((fragmentData) => {
-          logger.debug({ fragment, fragmentData }, 'fragment found by ID');
-    
-          res.setHeader('Location', process.env.API_URL);
-          //   res.status(200).json(createSuccessResponse(plainText));
-          res.send(fragmentData);
+        logger.debug({ fragment, fragmentData }, 'fragment found by ID');
+
+        res.setHeader('Location', process.env.API_URL);
+        //   res.status(200).json(createSuccessResponse(plainText));
+        res.send(fragmentData);
       });
     })
     .catch((err) => {
