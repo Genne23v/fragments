@@ -13,6 +13,6 @@ module.exports = async (req, res) => {
   const fragments = await Fragment.byUser(req.user, expand);
   logger.debug({ fragments }, 'a list of fragments');
 
-  res.setHeader('Location', process.env.API_URL);
+  res.setHeader('Location', process.env.API_URL || '');
   res.status(200).json(createSuccessResponse({fragments: fragments}));
 };
