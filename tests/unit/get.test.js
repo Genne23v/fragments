@@ -16,8 +16,8 @@ describe('GET v1/fragments', () => {
     expect(res.headers['location']).not.toBeUndefined();
   });
 
-  test('GET /fragments returns 404', async () => {
-    const res = await request(app).get('/fragments').auth('test1@test.com', 'Test123$')
+  test('GET /fragments returns 404', () => {
+    const res = request(app).get('/fragments').auth('test1@test.com', 'Test123$')
     expect(res.statusCode).toBe(404);
     expect(res.body.status).toBe('error');
   })
