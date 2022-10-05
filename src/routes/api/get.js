@@ -4,7 +4,7 @@ const logger = require('../../logger');
 require('dotenv').config();
 
 module.exports = async (req, res) => {
-  logger.info('GET v1/fragments requested');
+  logger.info('GET /v1/fragments requested');
 
   let expand = false;
   if (parseInt(req.query.expand) === 1){

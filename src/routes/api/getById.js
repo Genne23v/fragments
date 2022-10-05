@@ -4,16 +4,16 @@ const logger = require('../../logger');
 require('dotenv').config();
 
 module.exports = async (req, res) => {
-  logger.info('GET v1/fragments/:id requested');
+  logger.info('GET /v1/fragments/:id requested');
 
   await Fragment.byId(req.user, req.params.id)
     .then(async (fragment) => {
       await fragment.getData().then((fragmentData) => {
         logger.debug({ fragment, fragmentData }, 'fragment found by ID');
 
-        res.setHeader('Location', process.env.API_URL);
-        //   res.status(200).json(createSuccessResponse(plainText));
+        res.setHeader('Location', process.env.API_URL || '');
         res.send(fragmentData);
+        //   res.status(200).json(createSuccessResponse(plainText));
       });
     })
     .catch((err) => {

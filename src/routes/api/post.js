@@ -3,7 +3,7 @@ const { createSuccessResponse, createErrorResponse } = require('../../response')
 const { Fragment } = require('../../model/fragment');
 
 module.exports = (req, res) => {
-  logger.info('POST v1/fragments requested');
+  logger.info('POST /v1/fragments requested');
 
   if (Object.keys(req.body).length === 0) {
     res.status(415).json(createErrorResponse(415, 'Invalid content type'));
