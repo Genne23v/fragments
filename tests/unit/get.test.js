@@ -2,6 +2,11 @@ const request = require('supertest');
 const app = require('../../src/app');
 
 describe('GET /v1/fragments', () => {
+
+  afterAll((done) => {
+    
+    done()
+  })
   test('Unauthenticated requests are denied', () => request(app).get('/v1/fragments').expect(401));
 
   test('Incorrect credentials are denied', () =>
