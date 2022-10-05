@@ -3,7 +3,7 @@ const app = require('../../src/app');
 const wait = async (ms = 10) => new Promise((resolve) => setTimeout(resolve, ms));
 const { Fragment } = require('../../src/model/fragment');
 
-describe('GET v1/fragments/:id', () => {
+describe('GET /v1/fragments/:id', () => {
 
     const ownerId = '7777';
 

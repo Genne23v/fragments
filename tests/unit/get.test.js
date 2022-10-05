@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../../src/app');
 
-describe('GET v1/fragments', () => {
+describe('GET /v1/fragments', () => {
   test('Unauthenticated requests are denied', () => request(app).get('/v1/fragments').expect(401));
 
   test('Incorrect credentials are denied', () =>
@@ -12,7 +12,7 @@ describe('GET v1/fragments', () => {
       .get('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
       .expect(200)
-      .expect(res => expect(res.body.status).toBe('ok'))
+      .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(Array.isArray(res.body.fragments)).toBe(true))
       .expect((res) => expect(res.headers['location']).not.toBeUndefined())
       .end(done);
