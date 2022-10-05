@@ -7,8 +7,8 @@ describe('GET /v1/fragments', () => {
   test('Incorrect credentials are denied', () =>
     request(app).get('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-  test('Authenticated users get a fragments array', () => {
-    request(app)
+  test('Authenticated users get a fragments array', async () => {
+    await request(app)
       .get('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
       .expect(200)
