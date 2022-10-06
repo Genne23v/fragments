@@ -20,6 +20,7 @@ module.exports = (req, res) => {
   fragment.setData(req.body);
   fragment.save();
   
+  res.setHeader('Location', process.env.API_URL || '');
   res
     .status(200)
     .json(createSuccessResponse({ fragment: { ownerId, id, created, updated, type, size } }));
