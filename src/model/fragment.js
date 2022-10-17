@@ -52,18 +52,13 @@ class Fragment {
       this.updated = new Date().toISOString();
     }
 
-    const parsedType = contentType.parse(type).type;
-    const parameters = contentType.parse(type).parameters;
-    if (!this.formats.includes(parsedType)) {
+    const parsedType = contentType.parse(type)
+    if (!this.formats.includes(parsedType.type)) {
       logger.debug({ parsedType }, 'Invalid content type');
       throw new Error('Not supported content type');
     }
 
-    if ('charset' in parameters) {
-      this.type = parsedType + '; charset=utf-8';
-    } else {
-      this.type = parsedType;
-    }
+    this.type = contentType.format(parsedType);
 
     this.ownerId = ownerId;
     this.size = size;
@@ -75,9 +70,8 @@ class Fragment {
    * @param {boolean} expand whether to expand ids to full fragments
    * @returns Promise<Array<Fragment>>
    */
-  static async byUser(ownerId, expand = false) {
-    let fragments = await listFragments(ownerId, expand);
-    return fragments;
+  static byUser(ownerId, expand = false) {
+    return listFragments(ownerId, expand);
   }
 
   /**
