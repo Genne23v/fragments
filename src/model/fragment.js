@@ -13,10 +13,10 @@ const logger = require('../logger');
 
 const validTypes = [
   `text/plain`,
-  /*
   `text/markdown`,
   `text/html`,
   `application/json`,
+  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
@@ -158,7 +158,7 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return ['text/plain'];
+    return validTypes;
   }
 
   /**
@@ -168,6 +168,7 @@ class Fragment {
    */
   static isSupportedType(value) {
     const { type } = contentType.parse(value);
+    console.log('TYPE', type)
     return validTypes.includes(type);
   }
 }
