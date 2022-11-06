@@ -117,6 +117,9 @@ describe('Fragment class', () => {
   describe('isSupportedType()', () => {
     test('common text types are supported, with and without charset', () => {
       expect(Fragment.isSupportedType('text/plain')).toBe(true);
+      expect(Fragment.isSupportedType('text/markdown')).toBe(true);
+      expect(Fragment.isSupportedType('text/html')).toBe(true);
+      expect(Fragment.isSupportedType('application/json')).toBe(true);
       expect(Fragment.isSupportedType('text/plain; charset=utf-8')).toBe(true);
     });
 

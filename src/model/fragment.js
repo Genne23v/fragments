@@ -168,7 +168,6 @@ class Fragment {
    */
   static isSupportedType(value) {
     const { type } = contentType.parse(value);
-    console.log('TYPE', type)
     return validTypes.includes(type);
   }
 }

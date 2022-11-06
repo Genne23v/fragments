@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   logger.info('POST /v1/fragments requested');
 
   if (Object.keys(req.body).length === 0) {
-  // if (Buffer.isBuffer(req.body)) {
+    // if (Buffer.isBuffer(req.body)) {
     res.status(415).json(createErrorResponse(415, 'Invalid content type'));
   }
 
@@ -21,13 +21,11 @@ module.exports = (req, res) => {
   try {
     fragment.save();
     fragment.setData(req.body);
-  } catch(e){
-    logger.debug({e}, 'Failed to save content to database');
+  } catch (e) {
+    logger.debug({ e }, 'Failed to save content to database');
     throw new Error('Unable to save data');
   }
-  
+
   res.setHeader('Location', process.env.API_URL || req.headers.host);
-  res
-    .status(200)
-    .json(createSuccessResponse({fragment: fragment}));
+  res.status(200).json(createSuccessResponse({ fragment: fragment }));
 };
