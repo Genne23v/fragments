@@ -19,8 +19,6 @@ router.get('/fragments', require('./get'));
 
 router.get('/fragments/:id/info', require('./getInfoById'));
 
-// router.get('/fragments/:id.ext', require('./getConvertedById.js'));
-
 router.get('/fragments/:id', require('./getById'));
 
 router.post('/fragments', rawBody(), require('./post'));
