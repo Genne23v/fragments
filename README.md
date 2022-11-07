@@ -48,10 +48,10 @@ To run tests, use `npm run test` and `npm run coverage`
 
 ## Revision
 
-| Version | Release Content                                               | Date          |
-| ------- | ------------------------------------------------------------- | ------------- |
-| 0.5.0   | Add /v1/fragments/:id/info and html conversion capability     | Nov, 6, 2022  |
-| 0.4.0   | Support all text contents and Dockerize                       | Oct, 17, 2022 |
-| 0.3.0   | Add user email hashing and update GET POST response structure | Oct, 4, 2022  |
-| 0.2.0   | Add Fragment class, post route and tests                      | Sep 28, 2022  |
-| 0.1.0   | Basic Server & dev env setup<br>                              | Sep 9, 2022   |
+| Version | Release Content                                               | Date         |
+| ------- | ------------------------------------------------------------- | ------------ |
+| 0.5.0   | Add /v1/fragments/:id/info and html conversion capability     | Nov 6, 2022  |
+| 0.4.0   | Support all text contents and Dockerize                       | Oct 17, 2022 |
+| 0.3.0   | Add user email hashing and update GET POST response structure | Oct 4, 2022  |
+| 0.2.0   | Add Fragment class, post route and tests                      | Sep 28, 2022 |
+| 0.1.0   | Basic Server & dev env setup<br>                              | Sep 9, 2022  |
