@@ -7,25 +7,25 @@ describe('POST /v1/fragments', () => {
   test('Incorrect credentials are denied', () =>
     request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-  test('Authenticated users with text content type get a 200 response', (done) => {
+  test('Authenticated users with text content type get a 201 response', (done) => {
     request(app)
       .post('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
       .set('Content-Type', 'text/plain; charset=utf-8')
       .send('post test')
-      .expect(200)
+      .expect(201)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(res.body.fragment.type).toBe('text/plain; charset=utf-8'))
       .end(done);
   });
 
-  test('Authenticated users with markdown content type get a 200 response', (done) => {
+  test('Authenticated users with markdown content type get a 201 response', (done) => {
     request(app)
       .post('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
       .set('Content-Type', 'text/markdown')
       .send('post test')
-      .expect(200)
+      .expect(201)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(res.body.fragment.type).toBe('text/markdown'))
       .end(done);

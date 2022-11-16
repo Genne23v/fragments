@@ -8,7 +8,7 @@
         "test:watch": "jest -c jest.config.js --runInBand --watch --",
         "test": "jest -c jest.config.js --runInBand --forceExit --",
         "test:integration": "hurl --test --glob \"tests/integration/**/*.hurl\"",
-        "lint": "eslint --config .eslintrc.js src/** tests/**",
+        "lint": "eslint --config .eslintrc.js src/** tests/unit/**",
         "coverage": "jest -c jest.config.js --runInBand --coverage --detectOpenHandles",
         "start": "node src/index.js",
         "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
