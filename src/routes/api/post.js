@@ -26,6 +26,6 @@ module.exports = (req, res) => {
     throw new Error('Unable to save data');
   }
 
-  res.setHeader('Location', process.env.API_URL || req.headers.host);
-  res.status(200).json(createSuccessResponse({ fragment: fragment }));
+  res.setHeader('Location', `${process.env.API_URL}/v1/fragments/${fragment.id}` || req.headers.host);
+  res.status(201).json(createSuccessResponse({ fragment: fragment }));
 };

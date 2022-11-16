@@ -22,6 +22,8 @@ module.exports = async (req, res) => {
     const fragmentData = await fragment.getData();
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
     // res.setHeader('Location', process.env.API_URL || req.headers.host);
+  
+    res.setHeader('Content-Type', fragment.type)
     if (ext === 'html') {
       logger.info(`Convert ${id} to ${ext}`);
       let decoder = new TextDecoder('utf-8');
