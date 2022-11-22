@@ -36,6 +36,5 @@ aws --endpoint-url=http://localhost:8000 \
         --provisioned-throughput \
             ReadCapacityUnits=10,WriteCapacityUnits=5
 
-echo "Table has been created"
 aws --endpoint-url=http://localhost:8000 dynamodb wait table-exists --table-name fragments
 echo "Table has been created"
