@@ -1,14 +1,21 @@
 const { S3Client } = require('@aws-sdk/client-s3');
 const logger = require('../../../logger');
+require('dotenv').config();
 
 const getCredentials = () => {
   if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+    console.log(
+      'getCredentials',
+      process.env.AWS_ACCESS_KEY_ID,
+      process.env.AWS_SECRET_ACCESS_KEY,
+      process.env.AWS_REGION
+    );
     const credentials = {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       sessionToken: process.env.AWS_SESSION_TOKEN,
     };
-    logger.debug('Using extra S3 Credentials AWS_ACESS_KEY_ID and AWS_SECRET_ACCESS_KEY');
+    logger.debug('Using extra S3 Credentials AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY');
     return credentials;
   }
 };

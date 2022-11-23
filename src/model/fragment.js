@@ -52,7 +52,7 @@ class Fragment {
       this.updated = new Date().toISOString();
     }
 
-    const parsedType = contentType.parse(type)
+    const parsedType = contentType.parse(type);
     if (!this.formats.includes(parsedType.type)) {
       logger.debug({ parsedType }, 'Invalid content type');
       throw new Error('Not supported content type');

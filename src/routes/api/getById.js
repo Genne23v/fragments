@@ -19,11 +19,12 @@ module.exports = async (req, res) => {
 
   try {
     const fragment = await Fragment.byId(req.user, id);
+    logger.debug({ fragment }, 'GETTING FRAGMENT DATA');
     const fragmentData = await fragment.getData();
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
     // res.setHeader('Location', process.env.API_URL || req.headers.host);
-  
-    res.setHeader('Content-Type', fragment.type)
+
+    res.setHeader('Content-Type', fragment.type);
     if (ext === 'html') {
       logger.info(`Convert ${id} to ${ext}`);
       let decoder = new TextDecoder('utf-8');
@@ -32,8 +33,8 @@ module.exports = async (req, res) => {
     } else {
       res.send(fragmentData);
     }
-  } catch (e) {
-    logger.debug({ e }, 'Could not get fragment for requested ID');
+  } catch (err) {
+    logger.debug({ err }, 'Could not get fragment for requested ID');
     res
       .status(404)
       .json(createErrorResponse({ code: 404, message: 'Requested ID does not exist' }));
