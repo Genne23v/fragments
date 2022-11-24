@@ -1,6 +1,6 @@
 const MemoryDB = require('../memory/memory-db');
 const s3Client = require('./s3Client');
-const { PutObjectCommand, GetObjectCommand, DeleteBucketCommand } = require('@aws-sdk/client-s3');
+const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
 const logger = require('../../../logger');
 const metadata = new MemoryDB();
 
@@ -76,7 +76,7 @@ async function deleteFragment(ownerId, id) {
     Key: `${ownerId}/${id}}`,
   };
 
-  const command = new DeleteBucketCommand(params);
+  const command = new DeleteObjectCommand(params);
 
   try {
     await s3Client.send(command);

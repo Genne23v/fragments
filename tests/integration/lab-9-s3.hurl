@@ -23,6 +23,7 @@ test1@test.com: Test123$
 
 HTTP/* 200
 Content-Type: text/plain
+Content-Length: 9
 [Asserts]
 body == "Hello S3!"
 
