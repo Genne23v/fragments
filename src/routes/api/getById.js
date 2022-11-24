@@ -19,7 +19,6 @@ module.exports = async (req, res) => {
 
   try {
     const fragment = await Fragment.byId(req.user, id);
-    logger.debug({ fragment }, 'GETTING FRAGMENT DATA');
     const fragmentData = await fragment.getData();
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
     // res.setHeader('Location', process.env.API_URL || req.headers.host);

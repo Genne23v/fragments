@@ -2,13 +2,13 @@ const { createErrorResponse, createSuccessResponse } = require('../../response')
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 
-module.exports = async (req, res) => {
+module.exports = (req, res) => {
   logger.info('DELETE /v1/fragments/:id requested');
 
   const id = req.params.id;
 
   try {
-    await Fragment.delete(req.user, id);
+    Fragment.delete(req.user, id);
     logger.info('Fragment has been deleted');
     res.send(
       createSuccessResponse({ code: 200, message: 'Fragment has been deleted successfully' })

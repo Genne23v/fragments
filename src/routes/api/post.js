@@ -21,8 +21,8 @@ module.exports = (req, res) => {
   try {
     fragment.save();
     fragment.setData(req.body);
-  } catch (e) {
-    logger.debug({ e }, 'Failed to save content to database');
+  } catch (err) {
+    logger.debug({ err }, 'Failed to save content to database');
     throw new Error('Unable to save data');
   }
 

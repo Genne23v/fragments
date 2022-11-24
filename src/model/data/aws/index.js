@@ -3,16 +3,12 @@ const s3Client = require('./s3Client');
 const { PutObjectCommand, GetObjectCommand, DeleteBucketCommand } = require('@aws-sdk/client-s3');
 const logger = require('../../../logger');
 const metadata = new MemoryDB();
-require('dotenv').config();
 
 const streamToBuffer = (stream) => {
   new Promise((resolve, reject) => {
     let chunks = [];
 
-    stream.on('data', (chunk) => {
-      console.log('CHUNK', chunk);
-      chunks.push(chunk);
-    });
+    stream.on('data', (chunk) => chunks.push(chunk));
     stream.on('error', reject);
     stream.on('end', () => resolve(Buffer.concat(chunks)));
   });
@@ -23,24 +19,7 @@ function writeFragment(fragment) {
 }
 
 function readFragment(ownerId, id) {
-  const params = {
-    Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: `${ownerId}/${id}`,
-  };
-
-  const command = new GetObjectCommand(params);
-
-  try {
-    logger.debug({ ownerId, id }, 'DATA RETURNED FROM READ FRAGMENT');
-    const data = s3Client.send(command);
-    logger.debug({ data }, 'DATA RETRIEVED FROM S3');
-    return streamToBuffer(data.Body);
-  } catch (err) {
-    const { Bucket, Key } = params;
-    logger.error({ Bucket, Key }, 'Error getting metadata from S3');
-    throw new Error('Unable to read fragment metadata');
-  }
-  // return metadata.get(ownerId, id);
+  return metadata.get(ownerId, id);
 }
 
 async function writeFragmentData(ownerId, id, value) {
@@ -53,9 +32,7 @@ async function writeFragmentData(ownerId, id, value) {
   const command = new PutObjectCommand(params);
 
   try {
-    const data = await s3Client.send(command);
-    logger.info({ data }, 'WRITE FRAGMENT DATA');
-    console.log(data);
+    await s3Client.send(command);
   } catch (err) {
     const { Bucket, Key } = params;
     logger.error({ err, Bucket, Key }, 'Error uploading fragment data to S3');

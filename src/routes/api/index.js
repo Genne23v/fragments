@@ -15,14 +15,14 @@ const rawBody = () =>
     },
   });
 
-router.get('/fragments', require('./get'));
-
 router.get('/fragments/:id/info', require('./getInfoById'));
 
 router.get('/fragments/:id', require('./getById'));
 
-router.delete('fragments/:id', require('./delete'));
+router.delete('/fragments/:id', require('./delete'));
 
 router.post('/fragments', rawBody(), require('./post'));
+
+router.get('/fragments', require('./get'));
 
 module.exports = router;
