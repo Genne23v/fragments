@@ -80,8 +80,8 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise<Fragment>
    */
-  static async byId(ownerId, id) {
-    const fragment = await readFragment(ownerId, id);
+  static byId(ownerId, id) {
+    const fragment = readFragment(ownerId, id);
 
     if (!fragment) {
       throw new Error('Fragment does not exist in DB');
@@ -128,7 +128,7 @@ class Fragment {
     }
     this.size = data.length;
     this.updated = new Date().toISOString();
-    writeFragmentData(this.ownerId, this.id, data);
+    await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**

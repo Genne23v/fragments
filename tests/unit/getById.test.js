@@ -48,7 +48,7 @@ describe('GET /v1/fragments/:id', () => {
       .expect(200)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(res.body).toBe('<h1>h1 heading</h1>'))
-      .expect((res) => expect(res.headers['content-type']).toBe('text/html'))
+      .expect((res) => expect(res.headers['content-type']).toBe('text/markdown'))
       .expect((res) => expect(res.headers['content-length']).toBeGreaterThan(0))
       .expect((res) => expect(res.headers['location']).not.toBeUndefined());
   });

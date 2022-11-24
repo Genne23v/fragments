@@ -22,6 +22,7 @@ LABEL description="Fragments node.js microservice"
 ENV PORT=8080
 ENV NPM_CONFIG_LOGLEVEL=warn
 ENV NPM_CONFIG_COLOR=false
+ENV NODE_ENV=production
 
 WORKDIR /app
 
@@ -36,6 +37,11 @@ USER node
 CMD ["node", "src/index.js"]
 
 EXPOSE 8080
+
+USER root
+RUN apk add --update \
+    curl \
+    && rm -rf /var/cache/apk/*
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl --fail localhost || exit 1

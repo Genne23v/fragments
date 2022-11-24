@@ -18,8 +18,7 @@ describe('GET /v1/fragments', () => {
       .auth('test1@test.com', 'Test123$')
       .expect(200)
       .expect((res) => expect(res.body.status).toBe('ok'))
-      .expect((res) => expect(Array.isArray(res.body.fragments)).toBe(true))
-      .expect((res) => expect(res.headers['location']).not.toBeUndefined());
+      .expect((res) => expect(Array.isArray(res.body.fragments)).toBe(true));
   });
 
   test('Authenticated users get a expanded fragments array', async () => {
@@ -36,8 +35,7 @@ describe('GET /v1/fragments', () => {
       .expect((res) => expect(Array.isArray(res.body.fragments)).toBe(true))
       .expect((res) => expect(res.body.fragments.length).toBeGreaterThan(0))
       .expect((res) => expect(res.body.fragments[0].ownerId).toBe('7777'))
-      .expect((res) => expect(res.body.fragments[0].size).toBeGreaterThan(0))
-      .expect((res) => expect(res.headers['location']).not.toBeUndefined());
+      .expect((res) => expect(res.body.fragments[0].size).toBeGreaterThan(0));
   });
 
   test('Wrong URL returns 404', (done) => {

@@ -1,6 +1,5 @@
 const request = require('supertest');
 const app = require('../../src/app');
-const wait = async (ms = 10) => new Promise((res) => setTimeout(res, ms));
 const { Fragment } = require('../../src/model/fragment');
 
 describe('GET /v1/fragments/:id/info', () => {
@@ -17,7 +16,6 @@ describe('GET /v1/fragments/:id/info', () => {
 
   test('Authenticated user finds fragment info by ID', async () => {
     const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
-    await wait();
     await fragment.setData('getInfoById() test');
     await fragment.save();
     const fragmentUrl = `/v1/fragments/${fragment.id}/info`;
