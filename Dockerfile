@@ -26,10 +26,10 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-USER root
-RUN apk update \
-    && apk add wget=1.9.1 --no-cache \
-    && rm -rf /var/cache/apk/*
+# USER root
+# RUN apk update \
+#     && apk add wget=1.9.1 --no-cache \
+#     && rm -rf /var/cache/apk/*
 
 # Change default root authority to node
 COPY --from=dependencies /app /app
