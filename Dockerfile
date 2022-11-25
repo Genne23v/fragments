@@ -27,9 +27,9 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 USER root
-RUN apk update \
-    && apk add curl=7.84.0 --no-cache 
-#&& rm -rf /var/cache/apk/*
+RUN sudo apk update \
+    && sudo apk add curl=7.84.0 --no-cache \
+    && sudo rm -rf /var/cache/apk/*
 
 # Change default root authority to node
 COPY --from=dependencies /app /app
