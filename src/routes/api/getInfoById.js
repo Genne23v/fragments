@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
 
   const fragment = await Fragment.byId(req.user, req.params.id);
 
-  console.log('GET INFO BY ID', fragment, req.params.id);
   if (fragment) {
     res.status(200).json(createSuccessResponse({ fragment: fragment }));
   } else {

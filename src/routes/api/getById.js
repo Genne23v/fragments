@@ -1,36 +1,29 @@
-const md = require('markdown-it')();
 const { createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
-require('dotenv').config();
+const path = require('node:path');
 
 module.exports = async (req, res) => {
   logger.info('GET /v1/fragments/:id requested');
 
-  const idParams = req.params.id;
-  let id, ext;
-
-  if (idParams.indexOf('.') >= 0) {
-    id = idParams.substring(0, idParams.lastIndexOf('.'));
-    ext = idParams.substring(idParams.lastIndexOf('.') + 1);
-  } else {
-    id = idParams;
-  }
+  const id = path.basename(req.params.id, '.html');
+  const ext = path.extname(req.params.id);
+  let fragment, fragmentData;
 
   try {
-    const fragment = await Fragment.byId(req.user, id);
-    const fragmentData = await fragment.getData();
+    fragment = await Fragment.byId(req.user, id);
+    fragmentData = await fragment.getData();
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
 
     res.setHeader('Content-Length', fragment.size);
     res.setHeader('Content-Type', fragment.type);
+
     if (ext === 'html') {
-      logger.info(`Convert ${id} to ${ext}`);
-      let decoder = new TextDecoder('utf-8');
-      let converted = md.render(decoder.decode(fragmentData));
-      res.send(converted);
+      logger.info(`Converting ${id} to markdown`);
+      const htmlConverted = fragment.convertToHtml(fragmentData.toString());
+      res.send(htmlConverted);
     } else {
-      res.send(fragmentData);
+      res.send(fragmentData.toString());
     }
   } catch (err) {
     logger.debug({ err }, 'Could not get fragment for requested ID');

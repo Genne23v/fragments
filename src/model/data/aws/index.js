@@ -1,18 +1,17 @@
-const MemoryDB = require('../memory/memory-db');
 const s3Client = require('./s3Client');
 const { PutObjectCommand, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
-const logger = require('../../../logger');
+const MemoryDB = require('../memory/memory-db');
 const metadata = new MemoryDB();
+const logger = require('../../../logger');
 
-const streamToBuffer = (stream) => {
+const streamToBuffer = (stream) =>
   new Promise((resolve, reject) => {
-    let chunks = [];
+    const chunks = [];
 
     stream.on('data', (chunk) => chunks.push(chunk));
     stream.on('error', reject);
     stream.on('end', () => resolve(Buffer.concat(chunks)));
   });
-};
 
 function writeFragment(fragment) {
   return metadata.put(fragment.ownerId, fragment.id, fragment);
@@ -79,7 +78,7 @@ async function deleteFragment(ownerId, id) {
   const command = new DeleteObjectCommand(params);
 
   try {
-    await s3Client.send(command);
+    return Promise.all([s3Client.send(command), metadata.del(ownerId, id)]);
   } catch (err) {
     const { Bucket, Key } = params;
     logger.error({ err, Bucket, Key }, 'Error deleting fragment data in S3');

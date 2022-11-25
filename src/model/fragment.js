@@ -1,6 +1,6 @@
 const { randomUUID } = require('crypto');
 const contentType = require('content-type');
-
+const md = require('markdown-it')();
 const {
   readFragment,
   writeFragment,
@@ -57,7 +57,6 @@ class Fragment {
       logger.debug({ parsedType }, 'Invalid content type');
       throw new Error('Not supported content type');
     }
-
     this.type = contentType.format(parsedType);
 
     this.ownerId = ownerId;
@@ -113,8 +112,14 @@ class Fragment {
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  getData() {
-    return readFragmentData(this.ownerId, this.id);
+  async getData() {
+    return await readFragmentData(this.ownerId, this.id);
+  }
+
+  convertToHtml(fragmentData) {
+    let decoder = new TextDecoder('utf-8');
+    let converted = md.render(decoder.decode(fragmentData));
+    return converted;
   }
 
   /**
