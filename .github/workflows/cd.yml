@@ -25,6 +25,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
+          aws-cognito-pool-id: ${{ secrets.AWS_COGNITO_POOL_ID }}
+          aws-cognito-client-id: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
 
       - name: Login to Amazon ECR
         id: login-ecr
