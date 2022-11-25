@@ -7,6 +7,12 @@ on:
     tags:
       - 'v**'
 
+env:
+  AWS_COGNITO_POOL_ID: AWS_COGNITO_POOL_ID
+  AWS_COGNITO_CLIENT_ID: AWS_COGNITO_CLIENT_ID
+  AWS_S3_BUCKET_NAME: AWS_S3_BUCKET_NAME
+  AWS_S3_ENDPOINT_URL: AWS_S3_ENDPOINT_URL
+
 jobs:
   aws:
     name: AWS
@@ -25,10 +31,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
-          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
-          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
 
       - name: Login to Amazon ECR
         id: login-ecr
