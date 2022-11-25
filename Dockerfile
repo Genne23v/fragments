@@ -27,9 +27,9 @@ ENV NODE_ENV=production
 WORKDIR /app
 
 USER root
-RUN sudo apk update \
-    && sudo apk add curl=7.84.0 --no-cache \
-    && sudo rm -rf /var/cache/apk/*
+RUN apk update \
+    && apk add wget=1.9.1 --no-cache \
+    && rm -rf /var/cache/apk/*
 
 # Change default root authority to node
 COPY --from=dependencies /app /app
@@ -44,4 +44,4 @@ CMD ["node", "src/index.js"]
 EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl --fail localhost || exit 1
+    CMD wget --fail localhost || exit 1
