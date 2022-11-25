@@ -27,6 +27,7 @@ jobs:
           aws-region: us-east-1
           aws-cognito-pool-id: ${{ secrets.AWS_COGNITO_POOL_ID }}
           aws-cognito-client-id: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
+          aws-s3-bucket-name: ${{ secrets.AWS_S3_BUCKET_NAME }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -57,7 +58,7 @@ jobs:
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.update-task-def.outputs.task-definition }}
+          task-definition: fragments-definition.json
           cluster: fragments-cluster
           service: fragments-service
           wait-for-service-stability: true

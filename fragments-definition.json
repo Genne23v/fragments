@@ -25,7 +25,16 @@
         "command": [],
         "linuxParameters": null,
         "cpu": 256,
-        "environment": [],
+        "environment": [
+          {
+            "name": "HTPASSWD_FILE",
+            "value": "tests/.htpasswd"
+          },
+          {
+            "name": "PORT",
+            "value": "8080"
+          }
+        ],
         "resourceRequirements": null,
         "ulimits": null,
         "dnsServers": null,
