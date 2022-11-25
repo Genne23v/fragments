@@ -26,6 +26,11 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
+USER root
+RUN apk add --no-cache \
+    curl=7.86.0 \
+    && rm -rf /var/cache/apk/*
+
 # Change default root authority to node
 COPY --from=dependencies /app /app
 COPY --chown=node:node ./src ./src
@@ -37,11 +42,6 @@ USER node
 CMD ["node", "src/index.js"]
 
 EXPOSE 8080
-
-USER root
-RUN apk add --update \
-    curl \
-    && rm -rf /var/cache/apk/*
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl --fail localhost || exit 1
