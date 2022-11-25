@@ -28,7 +28,7 @@ WORKDIR /app
 
 USER root
 RUN apk update \
-    && add --no-cache curl=7.84.0 \
+    && apk add --no-cache curl=7.84.0 \
     && rm -rf /var/cache/apk/*
 
 # Change default root authority to node
