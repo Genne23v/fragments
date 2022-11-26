@@ -54,7 +54,11 @@ jobs:
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        env:
+        with:
+          task-definition: fragments-definition.json
+          cluster: fragments-cluster
+          service: fragments-service
+          wait-for-service-stability: true
           AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
           AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
           AWS_SESSION_TOKEN: '${{ secrets.AWS_SESSION_TOKEN }}'
@@ -63,8 +67,3 @@ jobs:
           AWS_S3_BUCKET_NAME: '${{ secrets.AWS_S3_BUCKET_NAME }}'
           AWS_S3_ENDPOINT_URL: '${{ secrets.AWS_S3_ENDPOINT_URL }}'
           API_URL: '${{ secrets.API_URL}}'
-        with:
-          task-definition: fragments-definition.json
-          cluster: fragments-cluster
-          service: fragments-service
-          wait-for-service-stability: true
