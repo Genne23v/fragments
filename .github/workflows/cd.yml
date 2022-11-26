@@ -25,14 +25,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
-          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
-          API_URL: ${{ secrets.API_URL}}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -52,14 +44,6 @@ jobs:
         id: update-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
-          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
-          API_URL: ${{ secrets.API_URL}}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPO: fragments
           VERSION_TAG: ${{ github.ref_name }}
@@ -71,14 +55,14 @@ jobs:
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
-          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
-          API_URL: ${{ secrets.API_URL}}
+          AWS_ACCESS_KEY_ID: '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          AWS_SECRET_ACCESS_KEY: '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+          AWS_SESSION_TOKEN: '${{ secrets.AWS_SESSION_TOKEN }}'
+          AWS_COGNITO_POOL_ID: '${{ secrets.AWS_COGNITO_POOL_ID }}'
+          AWS_COGNITO_CLIENT_ID: '${{ secrets.AWS_COGNITO_CLIENT_ID }}'
+          AWS_S3_BUCKET_NAME: '${{ secrets.AWS_S3_BUCKET_NAME }}'
+          AWS_S3_ENDPOINT_URL: '${{ secrets.AWS_S3_ENDPOINT_URL }}'
+          API_URL: '${{ secrets.API_URL}}'
         with:
           task-definition: fragments-definition.json
           cluster: fragments-cluster
