@@ -5,6 +5,7 @@ if (process.env.AWS_COGNITO_POOL_ID && process.env.AWS_COGNITO_CLIENT_ID) {
 } else if (process.env.HTPASSWD_FILE && process.NODE_ENV !== 'production') {
   module.exports = require('./basic-auth');
 } else {
-  logger.debug(process.env.AWS_COGNITO_CLIENT_ID, process.env.AWS_COGNITO_POOL_ID);
+  logger.info(process.env.AWS_COGNITO_CLIENT_ID, process.env.AWS_COGNITO_POOL_ID);
+  console.log('ENV', process.env.AWS_COGNITO_CLIENT_ID, process.env.AWS_COGNITO_POOL_ID);
   throw new Error('Missing env vars: no authorization configuration found');
 }
