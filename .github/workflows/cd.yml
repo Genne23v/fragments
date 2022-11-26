@@ -7,12 +7,6 @@ on:
     tags:
       - 'v**'
 
-env:
-  AWS_COGNITO_POOL_ID: AWS_COGNITO_POOL_ID
-  AWS_COGNITO_CLIENT_ID: AWS_COGNITO_CLIENT_ID
-  AWS_S3_BUCKET_NAME: AWS_S3_BUCKET_NAME
-  AWS_S3_ENDPOINT_URL: AWS_S3_ENDPOINT_URL
-
 jobs:
   aws:
     name: AWS
@@ -50,6 +44,11 @@ jobs:
         id: update-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         env:
+          AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
+          AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
+          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
+          API_URL: ${{ secrets.API_URL}}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPO: fragments
           VERSION_TAG: ${{ github.ref_name }}
