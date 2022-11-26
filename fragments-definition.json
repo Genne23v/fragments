@@ -24,14 +24,14 @@
       ],
       "command": [],
       "linuxParameters": null,
-      "cpu": 0,
+      "cpu": 256,
       "environment": [],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": null,
+      "secrets": [],
       "dockerSecurityOptions": null,
       "memory": null,
       "memoryReservation": 512,
@@ -64,7 +64,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:605360048146:task-definition/fragments-task:25",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:605360048146:task-definition/fragments-task:29",
   "family": "fragments-task",
   "requiresAttributes": [
     {
@@ -95,6 +95,12 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "ecs.capability.secrets.ssm.environment-variables"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
     },
     {
@@ -111,7 +117,7 @@
   "networkMode": "awsvpc",
   "runtimePlatform": null,
   "cpu": "256",
-  "revision": 25,
+  "revision": 29,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
