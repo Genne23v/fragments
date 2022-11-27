@@ -1,7 +1,7 @@
 {
     "name": "fragments",
     "private": true,
-    "version": "0.9.24",
+    "version": "0.9.25",
     "description": "Fragments backend API",
     "main": "index.js",
     "scripts": {
