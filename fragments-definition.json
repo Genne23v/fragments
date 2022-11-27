@@ -43,6 +43,14 @@
           "value": "8080"
         }, 
         {
+          "name": "AWS_S3_BUCKET_NAME",
+          "value": "wno-fragments"
+        },
+        {
+          "name": "AWS_S3_ENDPOINT_URL",
+          "value": "https://wno-fragments.s3.amazonaws.com"
+        },
+        {
           "name": "API_URL",
           "value": "http://EC2Co-EcsEl-1V541Z2D0YL3P-116161545.us-east-1.elb.amazonaws.com:8080"
         }
