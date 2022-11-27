@@ -31,7 +31,28 @@
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": [],
+      "secrets": [
+        {
+          "valueFrom": "us-east-1_uFDPathzG",
+          "name": "AWS_COGNITO_POOL_ID"
+        },
+        {
+          "valueFrom": "353fe1tjb3hkjemov6lu7o0vjm",
+          "name": "AWS_COGNITO_CLIENT_ID"
+        },
+        {
+          "valueFrom": "production",
+          "name": "NODE_ENV"
+        },
+        {
+          "valueFrom": "8080",
+          "name": "PORT"
+        },
+        {
+          "valueFrom": "us-east-1",
+          "name": "AWS_REGION"
+        }
+      ],
       "dockerSecurityOptions": null,
       "memory": null,
       "memoryReservation": 512,
