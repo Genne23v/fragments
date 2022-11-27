@@ -53,6 +53,7 @@ jobs:
           AWS_COGNITO_POOL_ID: ${{ secrets.AWS_COGNITO_POOL_ID }}
           AWS_COGNITO_CLIENT_ID: ${{ secrets.AWS_COGNITO_CLIENT_ID }}
           AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_S3_ENDPOINT_URL: ${{ secrets.AWS_S3_ENDPOINT_URL }}
         with:
           task-definition: fragments-definition.json
           container-name: fragments
