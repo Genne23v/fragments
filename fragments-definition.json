@@ -25,36 +25,7 @@
       "command": null,
       "linuxParameters": null,
       "cpu": 0,
-      "environment": [
-        {
-          "name": "API_URL",
-          "value": "http://EC2Co-EcsEl-1V541Z2D0YL3P-116161545.us-east-1.elb.amazonaws.com:8080"
-        },
-        {
-          "name": "AWS_COGNITO_CLIENT_ID",
-          "value": "353fe1tjb3hkjemov6lu7o0vjm"
-        },
-        {
-          "name": "AWS_COGNITO_POOL_ID",
-          "value": "us-east-1_uFDPathzG"
-        },
-        {
-          "name": "AWS_REGION",
-          "value": "us-east-1"
-        },
-        {
-          "name": "AWS_S3_BUCKET_NAME",
-          "value": "wno-fragments"
-        },
-        {
-          "name": "AWS_S3_ENDPOINT_URL",
-          "value": "https://wno-fragments.s3.amazonaws.com"
-        },
-        {
-          "name": "PORT",
-          "value": "8080"
-        }
-      ],
+      "environment": [],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
