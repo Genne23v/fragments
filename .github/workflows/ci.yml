@@ -56,15 +56,28 @@ jobs:
           cache: 'npm'
 
       - name: Install node dependencies and run tests
-        run: npm install-ci-test  
-# Same as
-#       run: |
-#       - npm install
-#       - npm test 
-  
+        run: npm install-ci-test
+  # Same as
+  #       run: |
+  #       - npm install
+  #       - npm test
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: action/checkout@v3
+      - name: Build Container
+        run: docker-compose up -d
+      - name: Setup Local AWS Resources
+        run: ./scripts/local-aws-setup.sh
+      - name: Run Hurl Tests
+        run: npm run test:integration
+
   docker-hub:
     name: Build and Push to Docker Hub
-    needs: [lint, dockerfile-lint, unit-tests]
+    needs: [lint, dockerfile-lint, unit-tests, integration-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -77,10 +90,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and Push
-        env: 
+        env:
           DOCKERHUB_REPO: zakk23v/fragments
           SHA_TAG: sha-${{ github.sha }}
         uses: docker/build-push-action@v2
-        with: 
+        with:
           push: true
           tags: ${{ env.DOCKERHUB_REPO }}:${{ env.SHA_TAG }}, ${{ env.DOCKERHUB_REPO }}:main, ${{ env.DOCKERHUB_REPO }}:latest
