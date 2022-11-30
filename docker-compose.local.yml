@@ -11,7 +11,6 @@ services:
       - AWS_REGION=us-east-1
       - AWS_S3_ENDPOINT_URL=http://minio:9000
       - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME:-fragments}
-    
     ports:
       - '8080:8080'
 
@@ -22,7 +21,6 @@ services:
     ports:
       - '9000:9000'
       - '9001:9001'
-
     environment:
       - MINIO_ROOT_USER=minio-access-key
       - MINIO_ROOT_PASSWORD=minio-secret-key
