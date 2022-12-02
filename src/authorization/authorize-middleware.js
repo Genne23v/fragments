@@ -23,7 +23,7 @@ module.exports = (strategyName) => {
       }
 
       if (!email) {
-        return res.status(401).json(createErrorResponse(401, 'Unauthorized'));
+        return res.status(401).json(createErrorResponse({ code: 401, message: 'Unauthorized' }));
       }
 
       req.user = hash(email);

@@ -1,22 +1,19 @@
-module.exports.createSuccessResponse = function() {
-    return {
-        status: 'ok'
-    }
-}
+module.exports.createSuccessResponse = function () {
+  return {
+    status: 'ok',
+  };
+};
 
-module.exports.createSuccessResponse = function(data) {
-    return {
-        status: 'ok',
-        ...data
-    }
-}
+module.exports.createSuccessResponse = function (data) {
+  return {
+    status: 'ok',
+    ...data,
+  };
+};
 
-module.exports.createErrorResponse = function(code, message) {
-    return {
-        status: 'error',
-        error: {
-            code: code,
-            message: message
-        }
-    }
-}
+module.exports.createErrorResponse = function (error) {
+  return {
+    status: 'error',
+    error,
+  };
+};

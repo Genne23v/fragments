@@ -2,7 +2,7 @@ const { createSuccessResponse, createErrorResponse } = require('../../src/respon
 
 describe('API Response', () => {
   test('createErrorResponse()', () => {
-    const errorResponse = createErrorResponse(404, 'Not found');
+    const errorResponse = createErrorResponse({ code: 404, message: 'Not found' });
     expect(errorResponse).toEqual({
       status: 'error',
       error: {
