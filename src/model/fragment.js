@@ -112,8 +112,9 @@ class Fragment {
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  async getData() {
-    return await readFragmentData(this.ownerId, this.id);
+  static getData(ownerId, id) {
+    logger.info('GETTING S3 DATA');
+    return readFragmentData(ownerId, id);
   }
 
   convertToHtml(fragmentData) {

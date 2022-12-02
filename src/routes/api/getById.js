@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
   try {
     fragment = await Fragment.byId(req.user, id);
-    fragmentData = await fragment.getData();
+    fragmentData = await Fragment.getData(req.user, id);
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
 
     res.setHeader('Content-Length', fragment.size);

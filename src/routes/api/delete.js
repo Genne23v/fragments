@@ -11,9 +11,7 @@ module.exports = async (req, res) => {
     await Fragment.delete(req.user, id);
 
     logger.info('Fragment has been deleted');
-    res.send(
-      createSuccessResponse({ code: 200, message: 'Fragment has been deleted successfully' })
-    );
+    res.send(createSuccessResponse());
   } catch (err) {
     logger.debug({ err }, 'Could not get fragment for requested ID');
     res

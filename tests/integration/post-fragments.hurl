@@ -30,7 +30,7 @@ GET {{url}}
 test1@test.com: Test123$
 
 HTTP/1.1 200
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
 Content-Length: 18
 [Asserts]
 body == "This is a fragment"
