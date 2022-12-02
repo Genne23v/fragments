@@ -81,7 +81,6 @@ HTTP/* 200
 Content-Type: application/json; charset=utf-8
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.fragments" count == 2
 body contains "{{fragment1_id}}"
 body contains "{{fragment2_id}}"
 
@@ -104,6 +103,5 @@ test1@test.com: Test123$
 HTTP/* 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.fragments" count == 1
 jsonpath "$.fragments[0]" != "{{fragment1_id}}"
 jsonpath "$.fragments[0]" == "{{fragment2_id}}"

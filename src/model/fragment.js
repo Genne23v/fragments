@@ -113,7 +113,6 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   static getData(ownerId, id) {
-    logger.info('GETTING S3 DATA');
     return readFragmentData(ownerId, id);
   }
 
