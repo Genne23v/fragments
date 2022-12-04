@@ -6,9 +6,9 @@ module.exports = async (req, res) => {
   logger.info('PUT /v1/fragments/:id requested');
 
   try {
-    const fragment = await Fragment.byId(req.user, req.params.id);
+    let fragment = await Fragment.byId(req.user, req.params.id);
+    fragment.setData(req.body);
     fragment.save();
-    await fragment.setData(req.body);
 
     res.setHeader(
       'Location',

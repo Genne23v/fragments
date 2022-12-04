@@ -35,7 +35,7 @@ describe('POST /v1/fragments', () => {
     request(app)
       .post('/v1/fragments')
       .auth('test1@test.com', 'Test123$')
-      .set('Content-Type', 'image/png')
+      .set('Content-Type', 'application/pdf')
       .send('post test')
       .expect(415)
       .expect((res) => expect(res.body.status).toBe('error'))

@@ -19,7 +19,7 @@ router.get('/fragments/:id/info', require('./getInfoById'));
 
 router.get('/fragments/:id', require('./getById'));
 
-router.put('/fragments/:id', require('./put'));
+router.put('/fragments/:id', rawBody(), require('./put'));
 
 router.delete('/fragments/:id', require('./delete'));
 

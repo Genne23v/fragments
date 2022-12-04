@@ -11,12 +11,13 @@ module.exports = async (req, res) => {
     let fragment = new Fragment({
       ownerId: req.user,
       type: req,
-      size: parseInt(contentSize),
+      size: parseInt(contentSize, 10),
     });
 
     try {
       fragment.save();
       await fragment.setData(req.body);
+
       res.setHeader(
         'Location',
         `${process.env.API_URL}/v1/fragments/${fragment.id}` || req.headers.host

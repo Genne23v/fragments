@@ -16,12 +16,10 @@ const validTypes = [
   `text/markdown`,
   `text/html`,
   `application/json`,
-  /*
   `image/png`,
   `image/jpeg`,
   `image/webp`,
   `image/gif`,
-  */
 ];
 
 class Fragment {
@@ -79,13 +77,14 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise<Fragment>
    */
-  static byId(ownerId, id) {
-    const fragment = readFragment(ownerId, id);
+  static async byId(ownerId, id) {
+    const fragment = await readFragment(ownerId, id);
 
-    if (!fragment) {
-      throw new Error('Fragment does not exist in DB');
+    if (fragment) {
+      const { created, updated, type, size } = fragment;
+      return new Fragment({ id, ownerId, created, updated, type, size });
     } else {
-      return fragment;
+      throw new Error('Fragment does not exist in DB');
     }
   }
 
@@ -112,14 +111,8 @@ class Fragment {
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  static getData(ownerId, id) {
-    return readFragmentData(ownerId, id);
-  }
-
-  convertToHtml(fragmentData) {
-    let decoder = new TextDecoder('utf-8');
-    let converted = md.render(decoder.decode(fragmentData));
-    return converted;
+  getData() {
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -127,13 +120,19 @@ class Fragment {
    * @param {Buffer} data
    * @returns Promise
    */
-  async setData(data) {
+  setData(data) {
     if (!data) {
       throw new Error('There is no data to store');
     }
     this.size = data.length;
     this.updated = new Date().toISOString();
-    await writeFragmentData(this.ownerId, this.id, data);
+    writeFragmentData(this.ownerId, this.id, data);
+  }
+
+  convertToHtml(fragmentData) {
+    let decoder = new TextDecoder('utf-8');
+    let converted = md.render(decoder.decode(fragmentData));
+    return converted;
   }
 
   /**

@@ -8,11 +8,10 @@ module.exports = async (req, res) => {
 
   const id = path.basename(req.params.id, '.html');
   const ext = path.extname(req.params.id);
-  let fragment, fragmentData;
 
   try {
-    fragment = await Fragment.byId(req.user, id);
-    fragmentData = await Fragment.getData(req.user, id);
+    const fragment = await Fragment.byId(req.user, id);
+    const fragmentData = await fragment.getData();
     logger.debug({ fragment, fragmentData }, 'fragment found by ID');
 
     res.setHeader('Content-Length', fragment.size);

@@ -5,10 +5,8 @@ const logger = require('../../logger');
 module.exports = async (req, res) => {
   logger.info('DELETE /v1/fragments/:id requested');
 
-  const id = req.params.id;
-
   try {
-    await Fragment.delete(req.user, id);
+    await Fragment.delete(req.user, req.params.id);
 
     logger.info('Fragment has been deleted');
     res.send(createSuccessResponse());

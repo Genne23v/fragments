@@ -52,7 +52,6 @@ async function writeFragmentData(ownerId, id, value) {
     Key: `${ownerId}/${id}`,
     Body: value,
   };
-
   const command = new PutObjectCommand(params);
 
   try {

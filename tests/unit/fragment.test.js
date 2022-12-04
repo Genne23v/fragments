@@ -170,6 +170,10 @@ describe('Fragment class', () => {
         'text/markdown',
         'text/html',
         'application/json',
+        'image/png',
+        'image/jpeg',
+        'image/webp',
+        'image/gif',
       ]);
     });
   });
@@ -187,7 +191,7 @@ describe('Fragment class', () => {
 
       const fragment2 = await Fragment.byId('1234', fragment.id);
       expect(fragment2).toEqual(fragment);
-      expect(await Fragment.getData(fragment2.ownerId, fragment2.id)).toEqual(data);
+      expect(await fragment.getData(fragment2.ownerId, fragment2.id)).toEqual(data);
     });
 
     test('save() updates the updated date/time of a fragment', async () => {
@@ -235,7 +239,7 @@ describe('Fragment class', () => {
 
     test('setData() throws if not give a Buffer', () => {
       const fragment = new Fragment({ ownerId: '123', type: 'text/plain', size: 0 });
-      expect(() => fragment.setData()).rejects.toThrow();
+      expect(() => fragment.setData()).toThrow();
     });
 
     test('setData() updates the fragment size', async () => {
@@ -255,7 +259,7 @@ describe('Fragment class', () => {
       await fragment.setData(Buffer.from('a'));
 
       await Fragment.delete('1234', fragment.id);
-      // expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
+      expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
     });
   });
 });
