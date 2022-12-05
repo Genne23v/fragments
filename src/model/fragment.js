@@ -1,6 +1,7 @@
 const { randomUUID } = require('crypto');
 const contentType = require('content-type');
 const md = require('markdown-it')();
+const sharp = require('sharp');
 const {
   readFragment,
   writeFragment,
@@ -25,7 +26,7 @@ const validTypes = [
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     if (ownerId === undefined || type === undefined) {
-      throw new Error('ownerId and type must be provided');
+      throw new Error('OwnerId and type must be provided');
     }
 
     if (!Number.isInteger(size) || size < 0) {
@@ -129,10 +130,64 @@ class Fragment {
     writeFragmentData(this.ownerId, this.id, data);
   }
 
-  convertToHtml(fragmentData) {
-    let decoder = new TextDecoder('utf-8');
-    let converted = md.render(decoder.decode(fragmentData));
-    return converted;
+  async convertData(ext) {
+    const data = await this.getData();
+    let convertedData;
+
+    if (this.isText) {
+      if (ext === '.txt') {
+        this.type = 'text/plain';
+      } else if (ext === '.html') {
+        if (this.type === 'text/markdown') {
+          let decoder = new TextDecoder('utf-8');
+          convertedData = md.render(decoder.decode(data));
+          this.type = 'text/html';
+        } else if (this.type === 'text/html') {
+          logger.info(`Requested to convert to html`);
+        } else {
+          throw new Error(`Cannot convert ${this.type} to html`);
+        }
+      } else if (ext === '.md') {
+        if (this.type === ('text/plain' | 'text/html')) {
+          throw new Error(`Cannot convert ${this.type} to markdown`);
+        } else if (this.type === 'text/markdown') {
+          logger.info(`Requested to convert to markdown`);
+        }
+      } else {
+        throw new Error(`Cannot convert ${this.type} to ${ext}`);
+      }
+    } else if (this.type.startsWith('application')) {
+      if (ext === '.txt') {
+        this.type = 'text/plain';
+      } else if (ext === '.json') {
+        logger.info(`Requested to convert to json`);
+      } else {
+        throw new Error(`Cannot convert ${this.type} to ${ext}`);
+      }
+    } else {
+      if (ext === '.png') {
+        convertedData = await sharp(data).png().toBuffer();
+        this.type = 'image/png';
+      } else if (ext === '.jpg') {
+        convertedData = await sharp(data).jpeg().toBuffer();
+        this.type = 'image/jpeg';
+      } else if (ext === '.webp') {
+        convertedData = await sharp(data).webp().toBuffer();
+        this.type = 'image/webp';
+      } else if (ext === '.gif') {
+        convertedData = await sharp(data).gif().toBuffer();
+        this.type = 'image/gif';
+      } else {
+        throw new Error(`Cannot convert ${this.type} to ${ext}`);
+      }
+    }
+
+    if (!convertedData) {
+      return data;
+    } else {
+      await this.save();
+      return convertedData;
+    }
   }
 
   /**
