@@ -104,4 +104,4 @@ HTTP/* 200
 [Asserts]
 jsonpath "$.status" == "ok"
 jsonpath "$.fragments[0]" != "{{fragment1_id}}"
-jsonpath "$.fragments[0]" == "{{fragment2_id}}"
+body contains "{{fragment2_id}}"

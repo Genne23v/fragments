@@ -25,7 +25,7 @@ GET {{url}}.txt
 test1@test.com: Test123$
 
 HTTP/1.1 200
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain
 Content-Length: 52
 [Asserts]
 jsonpath "$.name" == "test"

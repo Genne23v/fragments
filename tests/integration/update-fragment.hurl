@@ -38,6 +38,6 @@ GET {{fragment_url}}
 test1@test.com: Test123$
 
 HTTP/* 200
-Content-Type: text/html; charset=utf-8
+Content-Type: text/html
 [Asserts]
 body == "<h1>Updated fragment</h1>"

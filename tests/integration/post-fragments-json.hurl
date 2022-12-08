@@ -30,7 +30,7 @@ GET {{url}}
 test1@test.com: Test123$
 
 HTTP/1.1 200
-Content-Type: application/json; charset=utf-8
+Content-Type: application/json
 Content-Length: 238
 [Asserts]
 jsonpath "$.input" == "./Sherlock Homes"

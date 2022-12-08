@@ -4,7 +4,6 @@ Content-Type: text/plain; charset=utf-8
 test1@test.com: Test123$
 ```This is a fragment```
 
-
 HTTP/1.1 201
 [Asserts]
 header "Location" matches "^http:\/\/localhost:8080\/v1\/fragments\/[A-Za-z0-9_-]+$"

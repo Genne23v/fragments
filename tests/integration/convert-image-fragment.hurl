@@ -17,36 +17,29 @@ jsonpath "$.fragment.size" == 59547
 [Captures]
 url: header "Location"
 
-GET {{url}}
-[BasicAuth]
-test1@test.com: Test123$
-
-HTTP/1.1 200
-#file,image-tester.png;
-
 GET {{url}}.jpg
 [BasicAuth]
 test1@test.com: Test123$
 
 HTTP/1.1 200
-Content-Type: image/jpeg; charset=utf-8
-Content-Length: 54122
+Content-Type: image/jpeg
+Content-Length: 29645
 
 GET {{url}}.webp
 [BasicAuth]
 test1@test.com:Test123$
 
 HTTP/1.1 200
-Content-Type: image/webp; charset=utf-8
-Content-Length: 43665
+Content-Type: image/webp
+Content-Length: 23972
 
 GET {{url}}.gif
 [BasicAuth]
 test1@test.com:Test123$
 
 HTTP/1.1 200
-Content-Type: image/gif; charset=utf-8
-Content-Length: 117982
+Content-Type: image/gif
+Content-Length: 67932
 
 GET {{url}}.svg
 [BasicAuth]
