@@ -97,7 +97,7 @@ class Fragment {
    * @returns Promise
    */
   static async delete(ownerId, id) {
-    await deleteFragment(ownerId, id);
+    return await deleteFragment(ownerId, id);
   }
 
   /**
