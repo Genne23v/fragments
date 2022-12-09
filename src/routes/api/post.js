@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     });
 
     try {
-      fragment.save();
+      await fragment.save();
       await fragment.setData(req.body);
 
       res.setHeader(

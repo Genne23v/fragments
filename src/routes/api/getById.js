@@ -15,15 +15,18 @@ module.exports = async (req, res) => {
     let fragmentData;
 
     if (ext) {
-      logger.info(`Converting ${id} to ${ext}`, fragment);
+      logger.info(`Converting ${fragment.type} to ${ext}`, { id });
       fragmentData = await fragment.convertData(ext);
+
+      const type = Fragment.getConvertingType(ext);
+      res.setHeader('Content-Type', type);
+      res.setHeader('Content-Length', fragmentData.length);
     } else {
       fragmentData = await fragment.getData();
+      res.setHeader('Content-Length', fragment.size);
+      res.setHeader('Content-Type', fragment.type);
     }
-
-    res.setHeader('Content-Length', fragment.size);
-    res.setHeader('Content-Type', fragment.type);
-    res.send(fragmentData.toString());
+    res.send(fragmentData);
   } catch (err) {
     logger.debug({ err }, 'Could not get fragment for requested ID');
     res

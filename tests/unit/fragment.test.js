@@ -239,7 +239,7 @@ describe('Fragment class', () => {
 
     test('setData() throws if not give a Buffer', () => {
       const fragment = new Fragment({ ownerId: '123', type: 'text/plain', size: 0 });
-      expect(() => fragment.setData()).toThrow();
+      expect(() => fragment.setData()).rejects.toThrow();
     });
 
     test('setData() updates the fragment size', async () => {

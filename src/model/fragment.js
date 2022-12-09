@@ -80,11 +80,12 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     const fragment = await readFragment(ownerId, id);
-
+    logger.info({ fragment }, 'Fragment found in DB');
     if (fragment) {
       const { created, updated, type, size } = fragment;
       return new Fragment({ id, ownerId, created, updated, type, size });
     } else {
+      logger.debug('Fragment not found in DB');
       throw new Error('Fragment does not exist in DB');
     }
   }
@@ -103,17 +104,17 @@ class Fragment {
    * Saves the current fragment to the database
    * @returns Promise
    */
-  save() {
+  async save() {
     this.updated = new Date().toISOString();
-    writeFragment(this);
+    await writeFragment(this);
   }
 
   /**
    * Gets the fragment's data from the database
    * @returns Promise<Buffer>
    */
-  getData() {
-    return readFragmentData(this.ownerId, this.id);
+  async getData() {
+    return await readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -121,18 +122,19 @@ class Fragment {
    * @param {Buffer} data
    * @returns Promise
    */
-  setData(data) {
+  async setData(data) {
     if (!data) {
       throw new Error('There is no data to store');
     }
     this.size = data.length;
     this.updated = new Date().toISOString();
-    writeFragmentData(this.ownerId, this.id, data);
+    await writeFragmentData(this.ownerId, this.id, data);
   }
 
   async convertData(ext) {
     const data = await this.getData();
     let convertedData;
+    logger.info(`Converting ${this.type} to ${ext}`);
 
     if (this.isText) {
       if (ext === '.txt') {
@@ -148,10 +150,12 @@ class Fragment {
           throw new Error(`Cannot convert ${this.type} to html`);
         }
       } else if (ext === '.md') {
-        if (this.type === ('text/plain' | 'text/html')) {
+        if (this.type === 'text/plain' || this.type === 'text/html') {
           throw new Error(`Cannot convert ${this.type} to markdown`);
         } else if (this.type === 'text/markdown') {
           logger.info(`Requested to convert to markdown`);
+        } else {
+          throw new Error(`Cannot convert ${this.type} to ${ext}`);
         }
       } else {
         throw new Error(`Cannot convert ${this.type} to ${ext}`);
@@ -167,16 +171,12 @@ class Fragment {
     } else {
       if (ext === '.png') {
         convertedData = await sharp(data).png().toBuffer();
-        this.type = 'image/png';
       } else if (ext === '.jpg') {
         convertedData = await sharp(data).jpeg().toBuffer();
-        this.type = 'image/jpeg';
       } else if (ext === '.webp') {
         convertedData = await sharp(data).webp().toBuffer();
-        this.type = 'image/webp';
       } else if (ext === '.gif') {
         convertedData = await sharp(data).gif().toBuffer();
-        this.type = 'image/gif';
       } else {
         throw new Error(`Cannot convert ${this.type} to ${ext}`);
       }
@@ -185,9 +185,30 @@ class Fragment {
     if (!convertedData) {
       return data;
     } else {
-      await this.save();
       return convertedData;
     }
+  }
+
+  static getConvertingType(ext) {
+    let type;
+    if (ext === '.txt') {
+      type = 'text/plain';
+    } else if (ext === '.md') {
+      type = 'text/markdown';
+    } else if (ext === '.html') {
+      type = 'text/html';
+    } else if (ext === '.json') {
+      type = 'application/json';
+    } else if (ext === '.png') {
+      type = 'image/png';
+    } else if (ext === '.jpg') {
+      type = 'image/jpeg';
+    } else if (ext === '.webp') {
+      type = 'image/webp';
+    } else if (ext === '.gif') {
+      type = 'image/gif';
+    }
+    return type;
   }
 
   /**
