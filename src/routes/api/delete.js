@@ -6,9 +6,9 @@ module.exports = async (req, res) => {
   logger.info('DELETE /v1/fragments/:id requested');
 
   try {
-    await Fragment.delete(req.user, req.params.id);
+    const res = await Fragment.delete(req.user, req.params.id);
 
-    logger.info('Fragment has been deleted');
+    logger.info({ res }, 'Fragment has been deleted');
     res.send(createSuccessResponse());
   } catch (err) {
     logger.debug({ err }, 'Could not get fragment for requested ID');
