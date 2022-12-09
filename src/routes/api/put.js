@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
 
   try {
     let fragment = await Fragment.byId(req.user, req.params.id);
+    fragment.type = req.get('content-type');
     await fragment.setData(req.body);
     await fragment.save();
 
