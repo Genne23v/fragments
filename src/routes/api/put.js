@@ -11,10 +11,6 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
     await fragment.save();
 
-    res.setHeader(
-      'Location',
-      `${process.env.API_URL}/v1/fragments/${fragment.id}` || req.headers.host
-    );
     res.status(200).json(createSuccessResponse({ fragment: fragment }));
   } catch (err) {
     logger.debug({ err }, 'Could not update fragment for requested ID');

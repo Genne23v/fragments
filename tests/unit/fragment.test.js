@@ -262,4 +262,58 @@ describe('Fragment class', () => {
       expect(() => Fragment.byId('1234', fragment.id)).rejects.toThrow();
     });
   });
+
+  describe('convertData(), getConvertingType()', () => {
+    test('File extension provides full content type string', () => {
+      const type1 = Fragment.getConvertingType('.html');
+      const type2 = Fragment.getConvertingType('.md');
+      const type3 = Fragment.getConvertingType('.json');
+      const type4 = Fragment.getConvertingType('.jpg');
+      const type5 = Fragment.getConvertingType('.webp');
+      const type6 = Fragment.getConvertingType('.gif');
+      const type7 = Fragment.getConvertingType('.png');
+
+      expect(type1).toEqual('text/html');
+      expect(type2).toEqual('text/markdown');
+      expect(type3).toEqual('application/json');
+      expect(type4).toEqual('image/jpeg');
+      expect(type5).toEqual('image/webp');
+      expect(type6).toEqual('image/gif');
+      expect(type7).toEqual('image/png');
+    });
+
+    test('Convert markdown fragment to html', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('# Title'));
+
+      const converted = await fragment.convertData('.html');
+      expect(converted.toString()).toEqual('<h1>Title</h1>\n');
+    });
+
+    test('Same content type conversion request does nothing', async () => {
+      const fragment1 = new Fragment({ ownerId: '1234', type: 'text/plain', size: 0 });
+      await fragment1.save();
+      await fragment1.setData(Buffer.from('Plain text'));
+
+      const fragment2 = new Fragment({ ownerId: '1234', type: 'text/markdown', size: 0 });
+      await fragment2.save();
+      await fragment2.setData(Buffer.from('# Title'));
+
+      const converted1 = await fragment1.convertData('.txt');
+      expect(converted1.toString()).toEqual('Plain text');
+
+      const converted2 = await fragment2.convertData('.md');
+      expect(converted2.toString()).toEqual('# Title');
+    });
+
+    test('Convert html fragment to plain text', async () => {
+      const fragment = new Fragment({ ownerId: '1234', type: 'text/html', size: 0 });
+      await fragment.save();
+      await fragment.setData(Buffer.from('<p>fragment</p>'));
+
+      const converted = await fragment.convertData('.txt');
+      expect(converted.toString()).toEqual('<p>fragment</p>');
+    });
+  });
 });

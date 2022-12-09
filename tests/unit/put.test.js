@@ -20,8 +20,24 @@ describe('PUT /v1/fragments/:id', () => {
     request(app)
       .put(`/v1/fragments/${fragment.id}`)
       .auth('test1@test.com', 'Test123$')
-      .set('Content-Type', 'text/plain')
       .send('update fragment')
+      .expect(200)
+      .expect((res) => expect(res.body.status).toBe('ok'))
+      .expect((res) => expect(res.body.fragment.type).toBe('text/plain'))
+      .expect((res) => expect(res.body.fragment.size).toBe(13));
+  });
+
+  test('Users update fragment and its content type', async () => {
+    const fragment = new Fragment({ ownerId, type: 'text/markdown', size: 0 });
+    await wait();
+    await fragment.setData('*Markdown*');
+    await fragment.save();
+
+    request(app)
+      .put(`/v1/fragments/${fragment.id}`)
+      .auth('test1@test.com', 'Test123$')
+      .send('Markdown to text')
+      .set('Content-Type', 'text/plain')
       .expect(200)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(res.body.fragment.type).toBe('text/plain'));

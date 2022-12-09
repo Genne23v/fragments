@@ -48,12 +48,12 @@ describe('GET /v1/fragments/:id', () => {
       .expect(200)
       .expect((res) => expect(res.body.status).toBe('ok'))
       .expect((res) => expect(res.body).toBe('<h1>h1 heading</h1>'))
-      .expect((res) => expect(res.headers['content-type']).toBe('text/markdown'))
+      .expect((res) => expect(res.headers['content-type']).toBe('text/html'))
       .expect((res) => expect(res.headers['content-length']).toBeGreaterThan(0))
       .expect((res) => expect(res.headers['location']).not.toBeUndefined());
   });
 
-  test('User gets original content as invalid convert type request', async () => {
+  test('User receives a 404 for invalid convert type request', async () => {
     const fragment = new Fragment({ ownerId, type: 'text/plain', size: 0 });
     await wait();
     await fragment.setData('# h1 heading');
@@ -63,10 +63,8 @@ describe('GET /v1/fragments/:id', () => {
     request(app)
       .get(fragmentUrl)
       .auth('test1@test.com', 'Test123$')
-      .expect(200)
-      .expect((res) => expect(res.body.status).toBe('ok'))
-      .expect((res) => expect(res.body).toBe('# h1 heading'))
-      .expect((res) => expect(res.headers['location']).not.toBeUndefined());
+      .expect(404)
+      .expect((res) => expect(res.body.status).toBe('error'));
   });
 
   test('GET /v1/fragments returns 404', (done) => {
