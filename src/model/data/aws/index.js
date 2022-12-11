@@ -108,7 +108,7 @@ async function listFragments(ownerId, expand = false) {
 async function deleteFragment(ownerId, id) {
   const s3Params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Key: `${ownerId}/${id}}`,
+    Key: `${ownerId}/${id}`,
   };
 
   const ddbParams = {
